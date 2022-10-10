@@ -12,8 +12,7 @@ const Index = () => {
                 <div className="flex items-center justify-between mb-6">
                     <InertiaLink
                         className="px-6 py-2 text-white bg-green-500 rounded-md focus:outline-none"
-                        href={route("posts.create")}
-                    >
+                        href={route("posts.create")}>
                         Create Post
                     </InertiaLink>
                 </div>
@@ -34,16 +33,14 @@ const Index = () => {
                                     <td className="border-t">
                                         <InertiaLink
                                             href={route("posts.edit", id)}
-                                            className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"
-                                        >
+                                            className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none">
                                             {id}
                                         </InertiaLink>
                                     </td>
                                     <td className="border-t">
                                         <InertiaLink
                                             href={route("posts.edit", id)}
-                                            className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"
-                                        >
+                                            className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none">
                                             {title}
                                         </InertiaLink>
                                     </td>
@@ -51,8 +48,7 @@ const Index = () => {
                                         <InertiaLink
                                             tabIndex="1"
                                             className="flex items-center px-6 py-4"
-                                            href={route("posts.edit", id)}
-                                        >
+                                            href={route("posts.edit", id)}>
                                             {description}
                                         </InertiaLink>
                                     </td>
@@ -60,8 +56,7 @@ const Index = () => {
                                         <InertiaLink
                                             tabIndex="1"
                                             className="px-4 py-2 text-sm text-white bg-blue-500 rounded"
-                                            href={route("posts.edit", id)}
-                                        >
+                                            href={route("posts.edit", id)}>
                                             Edit
                                         </InertiaLink>
                                     </td>
@@ -69,11 +64,9 @@ const Index = () => {
                             ))}
                             {posts?.length === 0 && (
                                 <tr>
-                                    <td
-                                        className="px-6 py-4 border-t"
-                                        colSpan="4"
-                                    >
-                                        No contacts found.
+                                    <td className="px-6 py-4 border-t"
+                                        colSpan="4">
+                                        No posts found.
                                     </td>
                                 </tr>
                             )}

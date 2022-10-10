@@ -14,8 +14,8 @@ return new class () extends Migration {
     {
         Schema::create('earnings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('category_id')->constrained('categories');
             $table->string('name');
-            $table->string('category');
             $table->string('amount');
             $table->timestamps();
         });

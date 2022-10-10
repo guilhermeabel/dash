@@ -14,6 +14,7 @@ return new class () extends Migration {
     {
         Schema::create('credit_cards', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('account_id')->constrained('accounts');
             $table->string('name');
             $table->string('limit');
             $table->timestamps();

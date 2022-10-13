@@ -1,14 +1,13 @@
 import React from "react";
 //import { Inertia } from "@inertiajs/inertia";
 import { InertiaLink, usePage } from "@inertiajs/inertia-react";
+import PageWrapper from "../../Components/Wrappers";
 
 const Index = () => {
     const { posts } = usePage().props;
 
     return (
-        <div>
-            <div className="container mx-auto">
-                <h1 className="mb-8 text-3xl font-bold text-center">Post</h1>
+           <PageWrapper	pageTitle="Posts">
                 <div className="flex items-center justify-between mb-6">
                     <InertiaLink
                         className="px-6 py-2 text-white bg-green-500 rounded-md focus:outline-none"
@@ -18,13 +17,13 @@ const Index = () => {
                 </div>
 
                 <div className="overflow-x-auto bg-white rounded shadow">
-                    <table className="w-full whitespace-nowrap">
+                    <table className="w-full text-sm table-auto whitespace-nowrap">
                         <thead className="text-white bg-gray-600">
-                            <tr className="font-bold text-left">
-                                <th className="px-6 pt-5 pb-4">#</th>
-                                <th className="px-6 pt-5 pb-4">Title</th>
-                                <th className="px-6 pt-5 pb-4">Description</th>
-                                <th className="px-6 pt-5 pb-4">Action</th>
+                            <tr className="text-left font-normal">
+                                <th className="px-6 py-3">#</th>
+                                <th className="px-6 py-3">Title</th>
+                                <th className="px-6 py-3">Description</th>
+                                <th className="px-6 py-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -73,8 +72,8 @@ const Index = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
+            </PageWrapper>
+        
     );
 };
 

@@ -14,7 +14,9 @@ class MonthController extends Controller
      */
     public function index()
     {
-        //
+		$months = Post::latest()->get();
+
+        return Inertia::render('Month/Index', ['months' => $months]);
     }
 
     /**
@@ -24,7 +26,7 @@ class MonthController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Month/Create');
     }
 
     /**
@@ -35,7 +37,11 @@ class MonthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Month::create(
+            $request->validated()
+        );
+
+        return Redirect::route('months.index');
     }
 
     /**
@@ -57,7 +63,13 @@ class MonthController extends Controller
      */
     public function edit(Month $month)
     {
-        //
+        return Inertia::render('Month/Edit', [
+            'month' => [
+                'id' => $month->id,
+                'title' => $month->title,
+                'description' => $month->description
+            ]
+        ]);
     }
 
     /**
@@ -69,7 +81,9 @@ class MonthController extends Controller
      */
     public function update(Request $request, Month $month)
     {
-        //
+        $month->update($request->validated());
+
+        return Redirect::route('months.index');
     }
 
     /**
@@ -80,6 +94,8 @@ class MonthController extends Controller
      */
     public function destroy(Month $month)
     {
-        //
+		$month->delete();
+
+        return Redirect::route('months.index');
     }
 }

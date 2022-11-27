@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('entry_id')->constrained('entries');
-			$table->string('name');
-            $table->string('type');
-			$table->string('description');
-            $table->float('value');
+        Schema::create('entries', function (Blueprint $table) {
+            $table->id();            
+            $table->string('month');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('entries');
     }
 };

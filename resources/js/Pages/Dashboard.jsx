@@ -17,12 +17,12 @@ export default function Dashboard(props) {
                         <div className="p-6 bg-white border-b border-gray-200">
 							<InertiaLink
 								className="px-6 py-2 mr-2 text-white bg-green-500 rounded-md focus:outline-none"
-								href={route("posts.index")}>
-								Posts
+								href={route("entries.index")}>
+								Entries
 							</InertiaLink>
 							<InertiaLink
 								className="px-6 py-2 mr-2 text-white bg-blue-500 rounded-md focus:outline-none"
-								href={route("posts.index")}>
+								href={route("entries.index")}>
 								Example
 							</InertiaLink>
 						</div>

@@ -3,19 +3,18 @@ import { Inertia } from "@inertiajs/inertia";
 import { InertiaLink, usePage, useForm } from "@inertiajs/inertia-react";
 
 const Edit = () => {
-    const { post } = usePage().props;
+    const { entry } = usePage().props;
     const { data, setData, put, errors } = useForm({
-        title: post.title || "",
-        description: post.description || "",
+        month: entry.month || "",
     });
 
     function handleSubmit(e) {
         e.preventDefault();
-        put(route("posts.update", post.id));
+        put(route("entries.update", entry.id));
     }
     function destroy() {
-        if (confirm("Are you sure you want to delete this user?")) {
-            Inertia.delete(route("posts.destroy", post.id));
+        if (confirm("Are you sure you want to delete this entry?")) {
+            Inertia.delete(route("entries.destroy", entry.id));
         }
     }
 
@@ -25,10 +24,10 @@ const Edit = () => {
                 <div>
                     <h1 className="mb-8 text-3xl font-bold">
                         <InertiaLink
-                            href={route("posts.index")}
+                            href={route("entries.index")}
                             className="text-indigo-600 hover:text-indigo-700"
                         >
-                            Posts
+                            Months
                         </InertiaLink>
                         <span className="font-medium text-indigo-600"> /</span>
                         Edit
@@ -38,36 +37,19 @@ const Edit = () => {
                     <form name="createForm" onSubmit={handleSubmit}>
                         <div className="flex flex-col">
                             <div className="mb-4">
-                                <label className="">Title</label>
+                                <label className="">Month</label>
                                 <input
                                     type="text"
                                     className="w-full px-4 py-2"
-                                    label="Title"
-                                    name="title"
-                                    value={data.title}
+                                    label="Month"
+                                    name="month"
+                                    value={data.month}
                                     onChange={(e) =>
-                                        setData("title", e.target.value)
+                                        setData("month", e.target.value)
                                     }
                                 />
                                 <span className="text-red-600">
-                                    {errors.title}
-                                </span>
-                            </div>
-                            <div className="mb-4">
-                                <label className="">Description</label>
-                                <textarea
-                                    type="text"
-                                    className="w-full rounded"
-                                    label="description"
-                                    name="description"
-                                    errors={errors.description}
-                                    value={data.description}
-                                    onChange={(e) =>
-                                        setData("description", e.target.value)
-                                    }
-                                />
-                                <span className="text-red-600">
-                                    {errors.description}
+                                    {errors.month}
                                 </span>
                             </div>
                         </div>

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('month_id')->constrained('months');
+            $table->foreignId('entry_id')->constrained('entries');
 			$table->string('name');
             $table->string('type');
 			$table->string('description');

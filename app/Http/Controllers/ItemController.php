@@ -39,11 +39,13 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-        Item::create(
-            $request->validated()
-        );
+		$item = new Item;
+        $item->body = $request->get('item_body');
+        $item->user()->associate($request->user());
+        $entry = Entry::find($request->get('entry_id'));
+        $entry->items()->save($item);
 
-        return Redirect::route('items.index');
+        return back();
     }
 
     /**

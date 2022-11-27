@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entry;
+use App\Models\Item;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreEntryRequest;
 use Inertia\Inertia;
@@ -66,11 +67,14 @@ class EntryController extends Controller
      */
     public function edit(Entry $entry)
     {
+		$items = Item::where('entry_id', $entry->id)->get();
+
         return Inertia::render('Entry/Edit', [
             'entry' => [
                 'id' => $entry->id,
                 'month' => $entry->month,
-            ]
+			],
+			'items' => [...$items]
         ]);
     }
 

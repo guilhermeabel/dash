@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Entry;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreEntryRequest;
 use Inertia\Inertia;
 

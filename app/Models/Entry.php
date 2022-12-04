@@ -12,4 +12,9 @@ class Entry extends Model
 	protected $fillable = [
         'month'
     ];
+
+	public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }

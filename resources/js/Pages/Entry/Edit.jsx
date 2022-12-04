@@ -58,10 +58,10 @@ const Edit = () => {
 						</div>
 					</div>
 					<div className="flex justify-between mt-4 mb-5">
-						<ItemIndex entryId={entry.id} />
+						<ItemIndex />
 					</div>
 					<div className="flex justify-between mt-4 mb-5">
-						<ItemCreate entryId={entry.id} />
+						<ItemCreate />
 					</div>
 					<div className="flex justify-end">
 						{/* <button
@@ -70,14 +70,14 @@ const Edit = () => {
 						>
 							Update
 						</button> */}
-						<button
+						{/* <button
 							onClick={destroy}
 							tabIndex="-1"
 							type="button"
 							className="px-4 py-2 text-white bg-red-500 rounded"
 						>
 							Delete
-						</button>
+						</button> */}
 					</div>
 					{/* </form> */}
 				</div>

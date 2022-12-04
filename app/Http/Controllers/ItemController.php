@@ -46,7 +46,7 @@ class ItemController extends Controller
         $item->value = $request->get('value');
         $item->description = $request->get('description');
 		
-        $entry = Entry::find($request->get('entryId'));
+        $entry = Entry::find($request->get('entry_id'));
         $entry->items()->save($item);
 
         return back();
@@ -102,7 +102,5 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
 		$item->delete();
-
-        return Redirect::route('items.index');
     }
 }

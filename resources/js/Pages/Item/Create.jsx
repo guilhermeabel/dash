@@ -1,10 +1,12 @@
 import React from "react";
 import { Inertia } from "@inertiajs/inertia";
-import { InertiaLink, useForm } from "@inertiajs/inertia-react";
+import { InertiaLink, usePage, useForm } from "@inertiajs/inertia-react";
 
 export const Create = ({ entryId }) => {
+	const { entry } = usePage().props;
+
 	const { data, setData, errors, post } = useForm({
-		entryId: entryId,
+		entry_id: entry.id,
 		name: "",
 		type: "",
 		value: "",
@@ -89,7 +91,7 @@ export const Create = ({ entryId }) => {
 					type="submit"
 					className="px-6 py-2 font-bold text-white bg-green-500 rounded"
 				>
-					Save
+					Add Item
 				</button>
 			</div>
 		</form>

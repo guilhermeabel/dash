@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Entry;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreItemRequest;
 use Inertia\Inertia;
@@ -40,9 +41,12 @@ class ItemController extends Controller
     public function store(StoreItemRequest $request)
     {
 		$item = new Item;
-        $item->body = $request->get('item_body');
-        $item->user()->associate($request->user());
-        $entry = Entry::find($request->get('entry_id'));
+        $item->name = $request->get('name');
+        $item->type = $request->get('type');
+        $item->value = $request->get('value');
+        $item->description = $request->get('description');
+		
+        $entry = Entry::find($request->get('entryId'));
         $entry->items()->save($item);
 
         return back();

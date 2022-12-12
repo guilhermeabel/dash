@@ -3,6 +3,8 @@ import { Inertia } from "@inertiajs/inertia";
 import { InertiaLink, usePage, useForm } from "@inertiajs/inertia-react";
 import { Index as ItemIndex } from "../Item/Index";
 import { Create as ItemCreate } from "../Item/Create";
+import { Wrapper } from "../../Components/Wrappers";
+import { Container } from "../../Components/Wrappers";
 
 
 const Edit = () => {
@@ -22,9 +24,9 @@ const Edit = () => {
 	}
 
 	return (
-		<div className="mt-20">
-			<div className="container flex flex-col justify-center mx-auto">
-				<div>
+		<Wrapper>
+			<Container>
+				{/* <div>
 					<h1 className="mb-8 text-3xl font-bold">
 						<InertiaLink
 							href={route("entries.index")}
@@ -35,13 +37,12 @@ const Edit = () => {
 						<span className="font-medium text-indigo-600"> / </span>
 						Edit
 					</h1>
-				</div>
-				<div className="max-w-3xl p-8 bg-white rounded shadow">
-					{/* <form name="createForm" onSubmit={handleSubmit}> */}
-					<div className="flex flex-col">
-						<div className="mb-4">
-							<label className="">Month</label>
-							{/* <input
+				</div> */}
+				{/* <form name="createForm" onSubmit={handleSubmit}> */}
+				<div className="flex flex-col">
+					<div className="mb-4">
+						<label className="">Month</label>
+						{/* <input
 								type="text"
 								className="w-full px-4 py-2"
 								label="Month"
@@ -54,23 +55,23 @@ const Edit = () => {
 							<span className="text-red-600">
 								{errors.month}
 							</span> */}
-							<p className="font-bold">{data.month}</p>
-						</div>
+						<p className="font-bold">{data.month}</p>
 					</div>
-					<div className="flex justify-between mt-4 mb-5">
-						<ItemIndex />
-					</div>
-					<div className="flex justify-between mt-4 mb-5">
-						<ItemCreate />
-					</div>
-					<div className="flex justify-end">
-						{/* <button
+				</div>
+				<div className="flex justify-between mt-4 mb-5">
+					<ItemIndex />
+				</div>
+				<div className="flex justify-between mt-4 mb-5">
+					<ItemCreate />
+				</div>
+				<div className="flex justify-end">
+					{/* <button
 							type="submit"
 							className="px-4 py-2 text-white bg-green-500 rounded"
 						>
 							Update
 						</button> */}
-						{/* <button
+					{/* <button
 							onClick={destroy}
 							tabIndex="-1"
 							type="button"
@@ -78,11 +79,10 @@ const Edit = () => {
 						>
 							Delete
 						</button> */}
-					</div>
-					{/* </form> */}
 				</div>
-			</div>
-		</div>
+				{/* </form> */}
+			</Container>
+		</Wrapper>
 	);
 };
 

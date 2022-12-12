@@ -14,6 +14,7 @@
         @viteReactRefresh
         @vite('resources/js/app.jsx')
         @inertiaHead
+		<script src="https://kit.fontawesome.com/b22cad0624.js" crossorigin="anonymous"></script>
     </head>
     <body class="font-sans antialiased">
         @inertia

@@ -15,14 +15,14 @@ export const Index = () => {
 		}
 	}
 
-	return <table className="min-w-full">
+	return <table className="table min-w-full">
 		<thead className="border-b">
 			<tr>
-				<th scope="col" className="px-2 text-sm text-gray-900 py-4 text-left">Name</th>
-				<th scope="col" className="px-2 text-sm text-gray-900 py-4 text-left">Type</th>
-				<th scope="col" className="px-2 text-sm text-gray-900 py-4 text-left">Value</th>
-				<th scope="col" className="px-2 text-sm text-gray-900 py-4 text-left">Description</th>
-				<th scope="col" className="w-2"></th>
+				<th className="px-2 text-sm text-gray-900 py-4 text-left">Name</th>
+				<th className="px-2 text-sm text-gray-900 py-4 text-left">Type</th>
+				<th className="px-2 text-sm text-gray-900 py-4 text-left">Value</th>
+				<th className="px-2 text-sm text-gray-900 py-4 text-left">Description</th>
+				<th className="w-2"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -37,9 +37,9 @@ export const Index = () => {
 							onClick={() => destroy(item.id)}
 							tabIndex="-1"
 							type="button"
-							className="px-4 py-2 text-white bg-red-500 rounded"
+							className="delete"
 						>
-							X
+							<i className="fa-solid fa-xmark"></i>
 						</button>
 					</td>
 				</tr>)

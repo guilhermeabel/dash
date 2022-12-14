@@ -4,11 +4,13 @@ on:
       - monthly-structure
 name: 🚀 Deploy branch on push
 jobs:
-  build:
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
+    environment: dev
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: 18.x
     steps:
     - uses: actions/checkout@v3
     - name: use Node.js ${{ matrix.node-version }}
@@ -18,12 +20,6 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
-  
-  web-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
-    environment: dev
-    steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2
     

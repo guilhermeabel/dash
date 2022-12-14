@@ -2,32 +2,28 @@ on:
   push:
     branches:
       - monthly-structure
-name: 🚀 Deploy branch on push
+name: 🚀 Deploy on push
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
-    environment: dev
-    strategy:
-      matrix:
-        node-version: [18.x]
     steps:
-    - uses: actions/checkout@v3
-    - name: use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    
     - name: 🚚 Get latest code
       uses: actions/checkout@v2
+
+    - name: Use Node.js 18
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
       
+    - name: 🔨 Build Project
+      run: |
+        npm install
+        npm run build
+    
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
         server: ${{ secrets.ftp_server }}
         username: ${{ secrets.ftp_username }}
         password: ${{ secrets.ftp_password }}
-        package: public/build/

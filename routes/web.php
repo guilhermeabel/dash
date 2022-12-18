@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\EntryController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+require __DIR__.'/auth.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +31,5 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('posts', PostController::class);
-require __DIR__.'/auth.php';
+Route::resource('entries', EntryController::class);
+Route::resource('items', ItemController::class);

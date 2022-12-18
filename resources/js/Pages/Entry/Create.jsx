@@ -4,13 +4,12 @@ import { InertiaLink, useForm } from "@inertiajs/inertia-react";
 
 const Create = () => {
     const { data, setData, errors, post } = useForm({
-        title: "",
-        description: "",
+        month: "",
     });
 
     function handleSubmit(e) {
         e.preventDefault();
-        post(route("posts.store"));
+        post(route("entries.store"));
     }
 
     return (
@@ -19,10 +18,10 @@ const Create = () => {
                 <div>
                     <h1 className="mb-8 text-3xl font-bold">
                         <InertiaLink
-                            href={route("posts.index")}
+                            href={route("entries.index")}
                             className="text-indigo-600 hover:text-indigo-700"
                         >
-                            Posts
+                            Entries
                         </InertiaLink>
                         <span className="font-medium text-indigo-600"> / </span>
                         Create
@@ -32,36 +31,19 @@ const Create = () => {
                     <form name="createForm" onSubmit={handleSubmit}>
                         <div className="flex flex-col">
                             <div className="mb-4">
-                                <label className="">Title</label>
+                                <label className="">Month</label>
                                 <input
                                     type="text"
                                     className="w-full px-4 py-2"
-                                    label="Title"
-                                    name="title"
-                                    value={data.title}
+                                    label="Month"
+                                    name="month"
+                                    value={data.month}
                                     onChange={(e) =>
-                                        setData("title", e.target.value)
+                                        setData("month", e.target.value)
                                     }
                                 />
                                 <span className="text-red-600">
-                                    {errors.title}
-                                </span>
-                            </div>
-                            <div className="mb-0">
-                                <label className="">Description</label>
-                                <textarea
-                                    type="text"
-                                    className="w-full rounded"
-                                    label="description"
-                                    name="description"
-                                    errors={errors.description}
-                                    value={data.description}
-                                    onChange={(e) =>
-                                        setData("description", e.target.value)
-                                    }
-                                />
-                                <span className="text-red-600">
-                                    {errors.description}
+                                    {errors.month}
                                 </span>
                             </div>
                         </div>

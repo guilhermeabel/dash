@@ -1,7 +1,7 @@
 on: 
   push:
     branches:
-      - monthly-structure
+      - master
 name: 🚀 Deploy on push
 jobs:
   web-deploy:

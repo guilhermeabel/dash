@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\EntryController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ImportController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-require __DIR__.'/auth.php';
+
+require __DIR__ . '/auth.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +35,4 @@ Route::get('/dashboard', function () {
 
 Route::resource('entries', EntryController::class);
 Route::resource('items', ItemController::class);
+Route::resource('import', ImportController::class);

@@ -8,17 +8,14 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreEntryRequest;
 use Inertia\Inertia;
 
-
-class EntryController extends Controller
-{
+class EntryController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-		$entries = Entry::latest()->get();
+    public function index() {
+        $entries = Entry::latest()->get();
 
         return Inertia::render('Entry/Index', ['entries' => $entries]);
     }
@@ -28,8 +25,7 @@ class EntryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return Inertia::render('Entry/Create');
     }
 
@@ -39,8 +35,7 @@ class EntryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreEntryRequest $request)
-    {
+    public function store(StoreEntryRequest $request) {
         Entry::create(
             $request->validated()
         );
@@ -54,8 +49,7 @@ class EntryController extends Controller
      * @param  \App\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function show(Entry $entry)
-    {
+    public function show(Entry $entry) {
         //
     }
 
@@ -65,16 +59,15 @@ class EntryController extends Controller
      * @param  \App\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function edit(Entry $entry)
-    {
-		$items = Item::where('entry_id', $entry->id)->get();
+    public function edit(Entry $entry) {
+        $items = Item::where('entry_id', $entry->id)->get();
 
         return Inertia::render('Entry/Edit', [
             'entry' => [
                 'id' => $entry->id,
                 'month' => $entry->month,
-			],
-			'items' => [...$items]
+            ],
+            'items' => [...$items]
         ]);
     }
 
@@ -85,8 +78,7 @@ class EntryController extends Controller
      * @param  \App\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreEntryRequest $request, Entry $entry)
-    {
+    public function update(StoreEntryRequest $request, Entry $entry) {
         $entry->update($request->validated());
 
         return Redirect::route('entries.index');
@@ -98,9 +90,8 @@ class EntryController extends Controller
      * @param  \App\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Entry $entry)
-    {
-		$entry->delete();
+    public function destroy(Entry $entry) {
+        $entry->delete();
 
         return Redirect::route('entries.index');
     }

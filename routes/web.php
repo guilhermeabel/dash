@@ -29,10 +29,12 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::resource('entries', EntryController::class);
+    Route::resource('items', ItemController::class);
+    Route::resource('imports', ImportController::class);
 
-Route::resource('entries', EntryController::class);
-Route::resource('items', ItemController::class);
-Route::resource('import', ImportController::class);
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+});

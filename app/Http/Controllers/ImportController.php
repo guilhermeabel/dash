@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Import;
 use League\Csv\Reader;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class ImportController extends Controller {
     /**
@@ -14,6 +14,9 @@ class ImportController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+        $records = Import::all();
+
+        return Inertia::render('Import/Index', ['imports' => $records]);
     }
 
     /**

@@ -1,20 +1,23 @@
-import React from "react";
+import { React, useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
 import { InertiaLink, usePage, useForm } from "@inertiajs/inertia-react";
 import { PageWrapper } from "../../Components/Wrappers";
 
 const Index = () => {
 	const { imports } = usePage().props;
+	const [searchValue, setSearchValue] = useState('');
 
 	if (!imports) {
 		return <></>;
 	}
 
-	const destroy = (id) => {
-		if (confirm("Are you sure you want to delete this item?")) {
-			Inertia.delete(route("imports.destroy", id));
-		}
+	const filterItem = (item) => {
+		return item.title.toLowerCase().includes(searchValue.toLowerCase())
+			|| item.category.toLowerCase().includes(searchValue.toLowerCase())
+			|| item.date.toLowerCase().includes(searchValue.toLowerCase());
 	}
+
+	const filteredImports = imports.filter(item => filterItem(item));
 
 	return (
 		<PageWrapper pageTitle="Imports">
@@ -26,19 +29,28 @@ const Index = () => {
 				</InertiaLink>
 			</div> */}
 
+			<div className="flex items-center justify-between mb-6">
+				<input
+					className="px-6 py-2 rounded-md focus:outline-none"
+					value={searchValue}
+					onChange={e => setSearchValue(e.target.value)}
+					placeholder="Search"
+				/>
+			</div>
+
 			<div className="overflow-x-auto bg-white rounded shadow mb-5">
-				<table className="w-full text-sm table-auto whitespace-nowrap">
+				<table className="w-full min-w-full text-sm table-auto whitespace-nowrap">
 					<thead className="text-white bg-gray-600">
 						<tr className="text-left font-normal">
-							<th className="px-6 py-3">#</th>
-							<th className="px-6 py-3">Date</th>
-							<th className="px-6 py-3">Category</th>
-							<th className="px-6 py-3">Title</th>
-							<th className="px-6 py-3">Amount</th>
+							<th className="px-6 py-3 text-center">#</th>
+							<th className="px-6 py-3 text-center">Date</th>
+							<th className="px-6 py-3 text-center">Category</th>
+							<th className="px-6 py-3 text-center">Title</th>
+							<th className="px-6 py-3 text-center">Amount</th>
 						</tr>
 					</thead>
 					<tbody>
-						{imports?.map((item) => (
+						{filteredImports?.map((item) => (
 							<tr key={item.id} className="">
 								<td className="border-t">
 									<p className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none">{item.id}</p>

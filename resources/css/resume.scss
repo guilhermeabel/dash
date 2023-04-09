@@ -1,11 +1,6 @@
 @import "./fonts.scss";
+@import "./variables.scss";
 
-$primary-color: #0d1117;
-$secondary-color: #7d8590;
-$border-color: #2c2c2c;
-$white-secondary: #e6edf3;
-$white: #fff;
-$black: #000;
 $items-width: 500px;
 
 body {
@@ -27,13 +22,8 @@ body {
 		justify-content: center;
 		align-items: center;
 		font-family: "DM Mono";
-		background: rgb(255, 145, 0);
-		background: linear-gradient(
-			104deg,
-			rgba(255, 145, 0, 1) 8%,
-			rgba(255, 85, 0, 1) 57%,
-			rgba(252, 164, 69, 1) 100%
-		);
+		background: $orange;
+		background: $orange-gradient;
 		height: 35px;
 		width: 100vw;
 

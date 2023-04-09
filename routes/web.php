@@ -3,6 +3,7 @@
 use App\Http\Controllers\EntryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ResumeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,14 +21,14 @@ require __DIR__ . '/auth.php';
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -36,3 +37,6 @@ Route::get('/dashboard', function () {
 Route::resource('entries', EntryController::class);
 Route::resource('items', ItemController::class);
 Route::resource('import', ImportController::class);
+Route::resource('resume', ResumeController::class);
+
+Route::get('/', [ResumeController::class, 'index']);

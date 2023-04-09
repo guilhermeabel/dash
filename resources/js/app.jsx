@@ -1,6 +1,7 @@
 import './bootstrap';
 import '../css/app.css';
 import '../css/custom.scss';
+import '../css/resume.scss';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';

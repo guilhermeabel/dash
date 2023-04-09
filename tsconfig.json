@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+	  "target": "ESNext",
+	  "module": "ESNext",
+	  "moduleResolution": "node",
+	  "esModuleInterop": true,
+	  "jsx": "react",
+	  "sourceMap": true,
+	  "strict": true,
+	  "skipLibCheck": true,
+	  "forceConsistentCasingInFileNames": true,
+	  "resolveJsonModule": true,
+	  "isolatedModules": true,
+	  "lib": ["dom", "dom.iterable", "esnext"]
+	},
+	"include": ["resources/js/**/*"],
+	"exclude": ["node_modules"]
+}

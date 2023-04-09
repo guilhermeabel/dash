@@ -12,9 +12,17 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
+const globPages = {
+	...import.meta.glob('./Pages/**/*.jsx'),
+	...import.meta.glob('./Pages/**/*.tsx'),
+};
+
 createInertiaApp({
 	title: (title) => `${title} - ${appName}`,
-	resolve: (name) => resolvePageComponent(`./Pages/${name}.jsx`, import.meta.glob('./Pages/**/*.jsx')),
+	resolve: (name) => {
+		const page = `./Pages/${name}`;
+		return resolvePageComponent(`${page}.tsx`, globPages) || resolvePageComponent(`${page}.jsx`, globPages);
+	},
 	setup({ el, App, props }) {
 		const root = createRoot(el);
 

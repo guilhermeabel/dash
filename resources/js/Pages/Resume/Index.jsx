@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState, useLayoutEffect } from "react";
+import { Loading } from "../../Components/Loading";
 
 const Index = () => {
+	const [isLoading, setIsLoading] = useState(true);
+
+	useLayoutEffect(() => {
+		setIsLoading(false);
+	}, []);
+
+	if (isLoading) return (<Loading />);
+
 	return <div id="resume">
 		<div className="stripe">
 			<div>

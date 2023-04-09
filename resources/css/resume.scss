@@ -47,15 +47,11 @@ body {
 		justify-content: center;
 
 		ul {
-			margin-left: 20px;
+			margin-left: 40px;
 			width: $items-width;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-
-			@media screen and (max-width: 1050px) {
-				width: calc($items-width + 220px);
-			}
 		}
 
 		li {
@@ -73,6 +69,13 @@ body {
 			&.active {
 				color: $white;
 				border-bottom: 1px solid $white;
+			}
+		}
+
+		@media screen and (max-width: 1050px) {
+			ul {
+				margin-left: 20px;
+				width: calc($items-width + 220px);
 			}
 		}
 	}

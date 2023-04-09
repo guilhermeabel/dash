@@ -1,4 +1,4 @@
-import { LanguageBadge } from "../../../Components/LanguageBadge";
+import { TechSkill } from "../types/TechSkill";
 
 export const useFetchExperience = () => {
 	return [
@@ -18,13 +18,13 @@ export const useFetchExperience = () => {
 				"Unit testing, TDD, CI/CD",
 			],
 			languages: [
-				LanguageBadge.React,
-				LanguageBadge.PHP,
-				LanguageBadge.TypeScript,
-				LanguageBadge.MySQL,
-				LanguageBadge.JavaScript,
-				LanguageBadge.CSS,
-				LanguageBadge.SASS,
+				TechSkill.React,
+				TechSkill.PHP,
+				TechSkill.TypeScript,
+				TechSkill.MySQL,
+				TechSkill.JavaScript,
+				TechSkill.CSS,
+				TechSkill.SASS,
 			],
 		},
 
@@ -41,11 +41,11 @@ export const useFetchExperience = () => {
 				"More than 10 completed projects",
 			],
 			languages: [
-				LanguageBadge.JavaScript,
-				LanguageBadge.WordPress,
-				LanguageBadge.Jquery,
-				LanguageBadge.SASS,
-				LanguageBadge.PHP,
+				TechSkill.JavaScript,
+				TechSkill.WordPress,
+				TechSkill.Jquery,
+				TechSkill.SASS,
+				TechSkill.PHP,
 			],
 		},
 
@@ -60,11 +60,11 @@ export const useFetchExperience = () => {
 				"Acessibility, UI/UX, usability",
 			],
 			languages: [
-				LanguageBadge.Java,
-				LanguageBadge.Jquery,
-				LanguageBadge.HTML,
-				LanguageBadge.CSS,
-				LanguageBadge.JavaScript,
+				TechSkill.Java,
+				TechSkill.Jquery,
+				TechSkill.HTML,
+				TechSkill.CSS,
+				TechSkill.JavaScript,
 			],
 		},
 
@@ -80,13 +80,13 @@ export const useFetchExperience = () => {
 				"Mathematical equations, calculus",
 			],
 			languages: [
-				LanguageBadge.PHP,
-				LanguageBadge.Laravel,
-				LanguageBadge.Python,
-				LanguageBadge.Jquery,
-				LanguageBadge.HTML,
-				LanguageBadge.CSS,
-				LanguageBadge.JavaScript,
+				TechSkill.PHP,
+				TechSkill.Laravel,
+				TechSkill.Python,
+				TechSkill.Jquery,
+				TechSkill.HTML,
+				TechSkill.CSS,
+				TechSkill.JavaScript,
 			],
 		},
 
@@ -102,11 +102,11 @@ export const useFetchExperience = () => {
 				"Waterfall model, Agile",
 			],
 			languages: [
-				LanguageBadge.PHP,
-				LanguageBadge.JavaScript,
-				LanguageBadge.Jquery,
-				LanguageBadge.SASS,
-				LanguageBadge.MySQL,
+				TechSkill.PHP,
+				TechSkill.JavaScript,
+				TechSkill.Jquery,
+				TechSkill.SASS,
+				TechSkill.MySQL,
 			],
 		},
 	];

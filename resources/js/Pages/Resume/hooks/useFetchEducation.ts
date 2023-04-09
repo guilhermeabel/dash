@@ -1,4 +1,4 @@
-import { LanguageBadge } from "../../../Components/LanguageBadge";
+import { TechSkill } from "../types/TechSkill";
 
 export const useFetchEducation = () => {
 	return [
@@ -17,18 +17,18 @@ export const useFetchEducation = () => {
 				"Clean Code",
 			],
 			languages: [
-				LanguageBadge.CSharp,
-				LanguageBadge.Java,
-				LanguageBadge.DotNet,
-				LanguageBadge.Blazor,
-				LanguageBadge.TypeScript,
-				LanguageBadge.React,
-				LanguageBadge.NodeJS,
-				LanguageBadge.DynamoDB,
-				LanguageBadge.AWS,
-				LanguageBadge.GitHub,
-				LanguageBadge.MicrosoftAzure,
-				LanguageBadge.PowerShell,
+				TechSkill.CSharp,
+				TechSkill.Java,
+				TechSkill.DotNet,
+				TechSkill.Blazor,
+				TechSkill.TypeScript,
+				TechSkill.React,
+				TechSkill.NodeJS,
+				TechSkill.DynamoDB,
+				TechSkill.AWS,
+				TechSkill.GitHub,
+				TechSkill.MicrosoftAzure,
+				TechSkill.PowerShell,
 			],
 		},
 
@@ -45,8 +45,8 @@ export const useFetchEducation = () => {
 				"AI Fundamentals",
 			],
 			languages: [
-				LanguageBadge.Java,
-				LanguageBadge.Python,
+				TechSkill.Java,
+				TechSkill.Python,
 			],
 		},
 
@@ -62,12 +62,12 @@ export const useFetchEducation = () => {
 				"Low level Programming",
 			],
 			languages: [
-				LanguageBadge.C,
-				LanguageBadge.Bash,
-				LanguageBadge.Java,
-				LanguageBadge.Python,
-				LanguageBadge.ShellScript,
-				LanguageBadge.Docker
+				TechSkill.C,
+				TechSkill.Bash,
+				TechSkill.Java,
+				TechSkill.Python,
+				TechSkill.ShellScript,
+				TechSkill.Docker
 			],
 		},
 
@@ -83,12 +83,12 @@ export const useFetchEducation = () => {
 				"Web ecosystem",
 			],
 			languages: [
-				LanguageBadge.PHP,
-				LanguageBadge.JavaScript,
-				LanguageBadge.CSS,
-				LanguageBadge.HTML,
-				LanguageBadge.SASS,
-				LanguageBadge.MySQL,
+				TechSkill.PHP,
+				TechSkill.JavaScript,
+				TechSkill.CSS,
+				TechSkill.HTML,
+				TechSkill.SASS,
+				TechSkill.MySQL,
 			],
 		},
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { TimeLineItemProps } from "./types";
-import { LanguageBadgeImages } from '../../Components/LanguageBadge';
+import { TechSkillShield } from '../../Components/LanguageBadge';
 import { useFetchEducation } from "./hooks/useFetchEducation";
 
 const educationalTimeline = useFetchEducation();
@@ -36,7 +36,7 @@ const TimelineItem = ({
 				<div className="timeline-languages">
 					{languages.map((language, index) => (
 						<span className="language" key={index}>
-							{LanguageBadgeImages[language]()}
+							{TechSkillShield[language]()}
 						</span>
 					))}
 				</div>

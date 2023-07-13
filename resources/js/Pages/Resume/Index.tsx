@@ -68,7 +68,7 @@ const Index = () => {
 
 		<div className="resume-container">
 			<div className="info">
-				<img src="/images/profile.jpg" alt="profile picture" />
+				<img src="/images/profile2.jpg" alt="profile picture" />
 				<div>
 					<p>Guilherme Abel</p>
 					<p className="tag">guilhermeabel</p>

@@ -7,14 +7,14 @@
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @routes
         @viteReactRefresh
-        @vite('resources/js/app.jsx')
+        @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
-		<script src="https://kit.fontawesome.com/b22cad0624.js" crossorigin="anonymous"></script>
     </head>
     <body class="font-sans antialiased">
         @inertia

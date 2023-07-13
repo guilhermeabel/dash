@@ -8,9 +8,16 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
+const globPages = {
+	...import.meta.glob('./Pages/**/*.jsx'),
+	...import.meta.glob('./Pages/**/*.tsx'),
+};
+
+
+
 createInertiaApp({
 	title: (title) => `${title} - ${appName}`,
-	resolve: (name) => resolvePageComponent(`./Pages/${name}.jsx`, import.meta.glob('./Pages/**/*.jsx')),
+	resolve: (name) => resolvePageComponent(`./Pages/${name}.jsx`, globPages).catch(() => resolvePageComponent(`./Pages/${name}.tsx`, globPages)),
 	setup({ el, App, props }) {
 		const root = createRoot(el);
 

@@ -21,6 +21,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
+        abort(403);
         return Inertia::render('Auth/Register');
     }
 
@@ -31,6 +32,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        abort(403);
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:'.User::class,

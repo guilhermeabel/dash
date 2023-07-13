@@ -1,6 +1,5 @@
 import './bootstrap';
-import '../css/app.css';
-import '../css/custom.scss';
+import '../sass/app.scss';
 import '../css/resume.scss';
 import '../css/loading.scss';
 

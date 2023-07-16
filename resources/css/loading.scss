@@ -15,6 +15,13 @@
 		background: rgb(47, 44, 47);
 		background: linear-gradient(22deg, rgba(31, 31, 31, 1) 63%, rgba(12, 10, 18, 1) 99%);
 
+		&.chat {
+			.loading-value {
+				background: rgb(174, 246, 168);
+				background: linear-gradient(90deg, rgba(174, 246, 168, 1) 8%, rgba(250, 141, 248, 1) 100%);
+			}
+		}
+
 		.loading-value {
 			margin: auto;
 			width: 100%;

@@ -2,8 +2,11 @@ import React, { useEffect, useRef } from "react";
 import { Loading } from "../../Components/Loading";
 import useImageLoader from "../../Components/ImageLoader";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { router, usePage } from '@inertiajs/react'
+import { usePage } from '@inertiajs/react'
 import axios, { AxiosResponse } from "axios";
+import ChatProps from "./types";
+import MessageParser from "./MessageParser";
+
 
 const Chat = () => {
 	const imageUrls = ["/images/chat-gpt-banner.webp", "/images/gpt-black.png"];
@@ -59,26 +62,23 @@ const Chat = () => {
 		content: "Hi, I'm GPT-4, a helpful assistant.",
 	}
 
-
 	const model = "GPT-4";
 
 	const displayMessages = [defaultFirstMessage, ...messages ?? []];
 
 	useEffect(() => {
-		if (contentRef.current) {
-
+		if (contentRef.current && messages) {
+			console.log("scrolling ", contentRef.current.scrollHeight);
 			contentRef.current.scrollTo({
 				top: contentRef.current.scrollHeight,
 				behavior: "smooth",
 			});
 		}
-	}, [messages]);
+	}, [messages, contentRef.current]);
 
-	if (!allImagesLoaded) {
+	if (!allImagesLoaded || !messages) {
 		return <Loading isChat />;
 	}
-
-
 
 	return <div id="chat">
 
@@ -105,15 +105,13 @@ const Chat = () => {
 				{displayMessages.map((message, idx) => {
 					return <div key={idx} className={`item message ${message.role}`}>
 						<div className="message-content">
-							<p>{message.content}</p>
+							{message.role != "user" ? <MessageParser message={message.content} /> : <p>{message.content}</p>}
 							<p className="author">{message.role == "user" ? "You" : "AI Model"}</p>
 						</div>
 					</div>
 				})}
 
-
 			</div>
-
 
 			<div className="chat-actions">
 				<div className="chat-input">

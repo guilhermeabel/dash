@@ -9,7 +9,7 @@ class MessageController extends Controller
     public function store($chatId, $role, $content)
     {
         $message = new Message();
-        $message->chatId = $chatId;
+        $message->chat_id = $chatId;
         $message->role = $role;
         $message->content = $content;
         $message->save();

@@ -9,11 +9,11 @@ class UsageController extends Controller
     public function store($messageId, $model, $promptToken, $completionToken, $totalToken)
     {
         $usage = new Usage();
-        $usage->messageId = $messageId;
+        $usage->message_id = $messageId;
         $usage->model = $model;
-        $usage->promptToken = $promptToken;
-        $usage->completionToken = $completionToken;
-        $usage->totalToken = $totalToken;
+        $usage->prompt_tokens = $promptToken;
+        $usage->completion_tokens = $completionToken;
+        $usage->total_tokens = $totalToken;
         $usage->save();
     }
 

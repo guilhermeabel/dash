@@ -1,19 +1,42 @@
 import React, { useEffect, useRef } from "react";
 import { Loading } from "../../Components/Loading";
 import useImageLoader from "../../Components/ImageLoader";
-import { useMutation, useQueryClient } from "react-query";
-import { router } from '@inertiajs/react'
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { router, usePage } from '@inertiajs/react'
+import axios, { AxiosResponse } from "axios";
 
 const Chat = () => {
 	const imageUrls = ["/images/chat-gpt-banner.webp", "/images/gpt-black.png"];
 	const imageLoaders = imageUrls.map((url) => useImageLoader({ src: url }));
 	const allImagesLoaded = imageLoaders.every((imageLoader) => imageLoader.isLoaded) || imageLoaders.some((imageLoader) => imageLoader.isError);
+	const { props } = usePage();
+
+	const getMessages = async (): Promise<Message[]> => {
+		const response: AxiosResponse<Message[]> = await axios.get<Message[]>(`/chat/${props.chatId}/messages`);
+		return response.data;
+	};
+
+	const { data: messages } = useQuery<Message[]>({
+		queryKey: ['messages'],
+		queryFn: getMessages,
+		enabled: !!props.chatId,
+	})
+
 
 	const queryClient = useQueryClient()
 
+	type Message = {
+		role: string,
+		content: string
+	}
 
+	type RequestData = {
+		chatId: number,
+		newMessage: Message,
+		messageHistory: Message[]
+	}
 
-	const sendRequest = async (data: { content: string }) => {
+	const sendRequest = async (data: RequestData) => {
 		const response = await router.post('/chat/store', data);
 		return response;
 	};
@@ -26,114 +49,32 @@ const Chat = () => {
 
 	function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
 		e.preventDefault()
-		mutation.mutate({ content: "teste" })
+
+		if (!inputRef.current) return;
+		if (inputRef.current?.value.trim() === "") return;
+
+		mutation.mutate({
+			chatId: props.chatId as number,
+			newMessage: {
+				content: inputRef.current?.value,
+				role: "user"
+			},
+			messageHistory: [defaultFirstMessage, ...messages ?? []],
+		})
 	}
 
 	const contentRef = useRef<HTMLDivElement>(null);
+	const inputRef = useRef<HTMLInputElement>(null);
 
-	const messages = [
-		{
-			id: 1,
-			role: "system",
-			content: "Hi, I'm GPT-4, a chatbot that uses the OpenAI API to generate messages.",
-		},
-		{
-			id: 2,
-			role: "user",
-			content: "My creator is Guilherme Abel, a 22 year old programmer from Brazil.",
-		},
-		{
-			id: 3,
-			role: "system",
-			content: "Hi, I'm GPT-4, a chatbot that uses the OpenAI API to generate messages.",
-		},
-		{
-			id: 4,
-			role: "user",
-			content: "My creator is Guilherme Abel, a 22 year old programmer from Brazil.",
-		},
-		{
-			id: 5,
-			role: "system",
-			content: "Hi, I'm GPT-4, a chatbot that uses the OpenAI API to generate messages.",
-		},
-		{
-			id: 6,
-			role: "user",
-			content: "My creator is Guilherme Abel, a 22 year old programmer from Brazil.",
-		},
-		{
-			id: 7,
-			role: "system",
-			content: "Hi, I'm GPT-4, a chatbot that uses the OpenAI API to generate messages.",
-		},
-		{
-			id: 8,
-			role: "user",
-			content: "My creator is Guilherme Abel, a 22 year old programmer from Brazil.",
-		},
-		{
-			id: 9,
-			role: "system",
-			content: "Hi, I'm GPT-4, a chatbot that uses the OpenAI API to generate messages.",
-		},
-		{
-			id: 10,
-			role: "user",
-			content: "My creator is Guilherme Abel, a 22 year old programmer from Brazil.",
-		},
-		{
-			id: 11,
-			role: "system",
-			content: "Hi, I'm GPT-4, a chatbot that uses the OpenAI API to generate messages.",
-		},
-		{
-			id: 12,
-			role: "user",
-			content: "My creator is Guilherme Abel, a 22 year old programmer from Brazil.",
-		},
-		{
-			id: 13,
-			role: "system",
-			content: "Hi, I'm GPT-4, a chatbot that uses the OpenAI API to generate messages.",
-		},
-		{
-			id: 14,
-			role: "user",
-			content: "My creator is Guilherme Abel, a 22 year old programmer from Brazil.",
-		},
-		{
-			id: 15,
-			role: "system",
-			content: "Hi, I'm GPT-4, a chatbot that uses the OpenAI API to generate messages.",
-		},
-		{
-			id: 16,
-			role: "user",
-			content: "My creator is Guilherme Abel, a 22 year old programmer from Brazil.",
-		},
-		{
-			id: 17,
-			role: "system",
-			content: "Hi, I'm GPT-4, a chatbot that uses the OpenAI API to generate messages.",
-		},
-		{
-			id: 18,
-			role: "user",
-			content: "My creator is Guilherme Abel, a 22 year old programmer from Brazil.",
-		},
-		{
-			id: 19,
-			role: "system",
-			content: "Hi, I'm GPT-4, a chatbot that uses the OpenAI API to generate messages.",
-		},
-		{
-			id: 20,
-			role: "user",
-			content: "My creator is Guilherme Abel, a 22 year old programmer from Brazil.",
-		},
-	]
+	const defaultFirstMessage = {
+		role: "system",
+		content: "Hi, I'm GPT-4, a helpful assistant.",
+	}
 
+
+	const model = "GPT-4";
+
+	const displayMessages = [defaultFirstMessage, ...messages ?? []];
 
 	useEffect(() => {
 		if (contentRef.current) {
@@ -149,9 +90,6 @@ const Chat = () => {
 		return <Loading isChat />;
 	}
 
-
-
-	const model = "GPT-4";
 
 
 	return <div id="chat">
@@ -176,8 +114,8 @@ const Chat = () => {
 
 			<div className="content" ref={contentRef}>
 
-				{messages.map((message) => {
-					return <div key={message.id} className={`item message ${message.role}`}>
+				{displayMessages.map((message, idx) => {
+					return <div key={idx} className={`item message ${message.role}`}>
 						<div className="message-content">
 							<p>{message.content}</p>
 							<p className="author">{message.role == "user" ? "You" : "AI Model"}</p>
@@ -185,11 +123,13 @@ const Chat = () => {
 					</div>
 				})}
 
+
 			</div>
+
 
 			<div className="chat-actions">
 				<div className="chat-input">
-					<input type="text" placeholder="Type a message" />
+					<input ref={inputRef} type="text" placeholder="Type a message" />
 					<button className="send" onClick={handleSubmit}>Send</button>
 				</div>
 			</div>

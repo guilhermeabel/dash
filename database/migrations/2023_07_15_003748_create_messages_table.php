@@ -14,7 +14,7 @@ return new class () extends Migration {
             $table->id();
             $table->string('chat_id');
             $table->string('role');
-            $table->string('content');
+            $table->text('content');
             $table->timestamps();
         });
     }

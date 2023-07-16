@@ -1,8 +1,12 @@
 import React from "react";
 
-export const Loading = () => {
+type Props = {
+	isChat?: boolean;
+};
+
+export const Loading = ({ isChat = false }: Props) => {
 	return <div id="loading">
-		<div className="loading-container">
+		<div className={`loading-container ${isChat ? 'chat' : ''}`}>
 			<div className="loading-value"></div>
 		</div>
 	</div>;

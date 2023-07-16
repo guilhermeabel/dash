@@ -11,33 +11,21 @@ const Chat = () => {
 	const allImagesLoaded = imageLoaders.every((imageLoader) => imageLoader.isLoaded) || imageLoaders.some((imageLoader) => imageLoader.isError);
 	const { props } = usePage();
 
-	const getMessages = async (): Promise<Message[]> => {
-		const response: AxiosResponse<Message[]> = await axios.get<Message[]>(`/chat/${props.chatId}/messages`);
+	const getMessages = async (): Promise<ChatProps.Message[]> => {
+		const response: AxiosResponse<ChatProps.Message[]> = await axios.get<ChatProps.Message[]>(`/chat/${props.chatId}/messages`);
 		return response.data;
 	};
 
-	const { data: messages } = useQuery<Message[]>({
+	const { data: messages } = useQuery<ChatProps.Message[]>({
 		queryKey: ['messages'],
 		queryFn: getMessages,
-		enabled: !!props.chatId,
+		enabled: !!props.chatId
 	})
-
 
 	const queryClient = useQueryClient()
 
-	type Message = {
-		role: string,
-		content: string
-	}
-
-	type RequestData = {
-		chatId: number,
-		newMessage: Message,
-		messageHistory: Message[]
-	}
-
-	const sendRequest = async (data: RequestData) => {
-		const response = await router.post('/chat/store', data);
+	const sendRequest = async (data: ChatProps.RequestData): Promise<AxiosResponse> => {
+		const response: AxiosResponse = await axios.post('/chat/store', data);
 		return response;
 	};
 

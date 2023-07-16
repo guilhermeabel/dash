@@ -1,5 +1,7 @@
 import './bootstrap';
 import '../css/resume.scss';
+import '../css/chat.scss';
+import '../css/loading.scss';
 import '../css/app.css';
 
 import { createRoot } from 'react-dom/client';

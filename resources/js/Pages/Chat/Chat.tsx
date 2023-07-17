@@ -1,42 +1,21 @@
 import React, { useEffect, useRef } from "react";
 import { Loading } from "../../Components/Loading";
 import useImageLoader from "../../Components/ImageLoader";
-import { useMutation, useQuery, useQueryClient } from "react-query";
 import { usePage } from '@inertiajs/react'
-import axios, { AxiosResponse } from "axios";
-import ChatProps from "./types";
 import MessageParser from "./MessageParser";
+import { useGetMessagesQuery, useSendMessageMutation } from "./hooks";
+import { useIsMutating } from "@tanstack/react-query";
 
 
 const Chat = () => {
 	const imageUrls = ["/images/chat-gpt-banner.webp", "/images/gpt-black.png"];
 	const imageLoaders = imageUrls.map((url) => useImageLoader({ src: url }));
 	const allImagesLoaded = imageLoaders.every((imageLoader) => imageLoader.isLoaded) || imageLoaders.some((imageLoader) => imageLoader.isError);
+
 	const { props } = usePage();
-
-	const getMessages = async (): Promise<ChatProps.Message[]> => {
-		const response: AxiosResponse<ChatProps.Message[]> = await axios.get<ChatProps.Message[]>(`/chat/${props.chatId}/messages`);
-		return response.data;
-	};
-
-	const { data: messages } = useQuery<ChatProps.Message[]>({
-		queryKey: ['messages'],
-		queryFn: getMessages,
-		enabled: !!props.chatId
-	})
-
-	const queryClient = useQueryClient()
-
-	const sendRequest = async (data: ChatProps.RequestData): Promise<AxiosResponse> => {
-		const response: AxiosResponse = await axios.post('/chat/store', data);
-		return response;
-	};
-
-	const mutation = useMutation(sendRequest, {
-		onSuccess: () => {
-			queryClient.invalidateQueries();
-		},
-	});
+	const { data: messages } = useGetMessagesQuery(props.chatId as number);
+	const { mutate: sendMessage } = useSendMessageMutation();
+	const isMutating = !!useIsMutating();
 
 	function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
 		e.preventDefault()
@@ -44,7 +23,7 @@ const Chat = () => {
 		if (!inputRef.current) return;
 		if (inputRef.current?.value.trim() === "") return;
 
-		mutation.mutate({
+		sendMessage({
 			chatId: props.chatId as number,
 			newMessage: {
 				content: inputRef.current?.value,
@@ -68,7 +47,6 @@ const Chat = () => {
 
 	useEffect(() => {
 		if (contentRef.current && messages) {
-			console.log("scrolling ", contentRef.current.scrollHeight);
 			contentRef.current.scrollTo({
 				top: contentRef.current.scrollHeight,
 				behavior: "smooth",
@@ -79,6 +57,8 @@ const Chat = () => {
 	if (!allImagesLoaded || !messages) {
 		return <Loading isChat />;
 	}
+
+	const disableSendButton = isMutating || (inputRef.current?.value.trim() === "");
 
 	return <div id="chat">
 
@@ -116,7 +96,7 @@ const Chat = () => {
 			<div className="chat-actions">
 				<div className="chat-input">
 					<input ref={inputRef} type="text" placeholder="Type a message" />
-					<button className="send" onClick={handleSubmit}>Send</button>
+					<button className="send" disabled={disableSendButton} onClick={handleSubmit}>Send</button>
 				</div>
 			</div>
 

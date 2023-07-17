@@ -1,5 +1,6 @@
 import React from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Chat from "./Chat";
 
 const Index = () => {
@@ -8,6 +9,7 @@ const Index = () => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Chat />
+			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	);
 };

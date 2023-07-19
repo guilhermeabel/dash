@@ -43,6 +43,11 @@ body {
 			align-items: center;
 			margin-bottom: 20px;
 
+			width: 100%;
+			-webkit-box-shadow: 0px 35px 15px 0px $primary-color;
+			-moz-box-shadow: 0px 35px 15px 0px $primary-color;
+			box-shadow: 0px 35px 15px 0px $primary-color;
+
 			.rotating-logo {
 				width: 180px;
 				filter: invert(1);
@@ -85,27 +90,31 @@ body {
 			flex-direction: column;
 			overflow-y: scroll;
 			position: relative;
-			height: 66vh;
-			width: 70vw;
+			height: 62vh;
+			padding: 35px;
+			width: 100vw;
+			gap: 30px;
 
 			.item {
-				margin: 10px;
+				display: flex;
+				flex-direction: column;
 				padding: 35px;
 				color: $white-secondary;
+				border-radius: 12px;
 
 				&.user {
+					align-items: flex-end;
 					border: 1px solid $border-color;
-					margin-left: 130px;
+					margin-left: 4vw;
+					align-self: flex-end; /* Added this line */
 				}
 
 				&.system {
-					margin-right: 130px;
-					border-radius: 12px;
-
-					border: 1px solid;
+					align-items: flex-start;
+					margin-right: 4vw;
+					border: 2px solid #aef6a8;
 					border-image-slice: 1;
-					border-width: 1px;
-					border-image-source: linear-gradient(to left, #b84aba, #aef6a8);
+					align-self: flex-start; /* Added this line */
 				}
 
 				p {
@@ -117,6 +126,7 @@ body {
 					text-align: justify;
 
 					&.author {
+						display: none;
 						color: $secondary-color;
 						font-size: 14px;
 						text-align: left;
@@ -129,11 +139,15 @@ body {
 		.chat-actions {
 			margin: 10px 10px 0 0;
 			padding: 35px;
-			width: 600px;
+			width: 100%;
 			border: none;
 			position: fixed;
 			bottom: 0;
 			background-color: $primary-color;
+
+			-webkit-box-shadow: 0px -30px 20px 0px $primary-color;
+			-moz-box-shadow: 0px -30px 20px 0px $primary-color;
+			box-shadow: 0px -30px 20px 0px $primary-color;
 
 			.chat-input {
 				display: flex;

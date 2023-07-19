@@ -10,8 +10,8 @@ export const useGetMessagesQuery = (chatId: number) => {
 			return response.data;
 		},
 		enabled: !!chatId,
-		staleTime: 0,
-		cacheTime: 0
+		staleTime: Infinity,
+		cacheTime: Infinity
 	});
 };
 

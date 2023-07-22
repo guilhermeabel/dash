@@ -33,7 +33,7 @@ class OpenAIController extends Controller
                         ]
                     ],
                     'temperature' => 1.2,
-                    'max_tokens' => 100,
+                    'max_tokens' => 1000,
                 ],
             ]);
 

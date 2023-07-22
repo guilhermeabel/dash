@@ -47,6 +47,116 @@
 	}
 }
 
+#loading-small {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 3px;
+
+	.loader {
+		background-color: #1d212c;
+		box-shadow: inset 0 0px 5px $border-color;
+		border-radius: 50%;
+		display: block;
+		height: 32px;
+		width: 32px;
+		-webkit-animation: loader-2-1 3s linear infinite;
+		animation: loader-2-1 3s linear infinite;
+	}
+	@-webkit-keyframes loader-2-1 {
+		0% {
+			-webkit-transform: rotate(0deg);
+		}
+		100% {
+			-webkit-transform: rotate(360deg);
+		}
+	}
+	@keyframes loader-2-1 {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+	.loader span {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		margin: auto;
+		height: 32px;
+		width: 32px;
+		clip: rect(16px, 32px, 32px, 0);
+		-webkit-animation: loader-2-2 1s ease-in-out infinite;
+		animation: loader-2-2 1s ease-in-out infinite;
+	}
+	@-webkit-keyframes loader-2-2 {
+		0% {
+			-webkit-transform: rotate(0deg);
+		}
+		100% {
+			-webkit-transform: rotate(360deg);
+		}
+	}
+	@keyframes loader-2-2 {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+	.loader span::before {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		margin: auto;
+		height: 32px;
+		width: 32px;
+		border: 3px solid transparent;
+		border-top: 12px solid rgba(250, 141, 248, 1);
+		border-radius: 50%;
+		-webkit-animation: loader-2-3 1s ease-in-out infinite;
+		animation: loader-2-3 1s ease-in-out infinite;
+	}
+	@-webkit-keyframes loader-2-3 {
+		0% {
+			-webkit-transform: rotate(0deg);
+		}
+		100% {
+			-webkit-transform: rotate(360deg);
+		}
+	}
+	@keyframes loader-2-3 {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+	.loader span::after {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		margin: auto;
+		height: 32px;
+		width: 32px;
+		border: 3px solid rgba(174, 246, 168, 0.8);
+		border-radius: 50%;
+	}
+}
 
 #loading-button {
 	@keyframes rotate {

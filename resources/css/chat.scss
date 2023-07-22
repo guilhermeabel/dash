@@ -1,7 +1,7 @@
 @import "./fonts.scss";
 @import "./variables.scss";
 
-$items-width: 500px;
+$sidebar-width: 300px;
 
 body {
 	background-color: $primary-color;
@@ -18,7 +18,7 @@ body {
 	width: 100vw;
 
 	.menu {
-		display: flex;
+		display: none;
 		width: 100vw;
 		justify-content: center;
 		position: relative;
@@ -33,20 +33,19 @@ body {
 		display: flex;
 		align-items: center;
 		position: relative;
-		flex-direction: column;
+		flex-direction: row;
+		justify-content: space-between;
+		width: 100%;
 
-		.info {
-			margin-top: -70px;
+		.sidebar {
+			width: $sidebar-width;
+			height: 100vh;
 			z-index: 2;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			margin-bottom: 20px;
 
-			width: 100%;
-			-webkit-box-shadow: 0px 35px 15px 0px $primary-color;
-			-moz-box-shadow: 0px 35px 15px 0px $primary-color;
-			box-shadow: 0px 35px 15px 0px $primary-color;
+			box-shadow: inset 0 0px 5px $border-color;
 
 			.rotating-logo {
 				width: 180px;
@@ -90,9 +89,10 @@ body {
 			flex-direction: column;
 			overflow-y: scroll;
 			position: relative;
-			height: 62vh;
+			height: 100vh;
 			padding: 35px;
-			width: 100vw;
+			padding-bottom: 150px;
+			width: 100%;
 			gap: 30px;
 
 			.item {
@@ -101,24 +101,32 @@ body {
 				padding: 35px;
 				color: $white-secondary;
 				border-radius: 12px;
+				transition:
+					transform 0.3s ease,
+					opacity 0.3s ease;
 
 				&.user {
 					align-items: flex-end;
 					border: 1px solid $border-color;
 					margin-left: 4vw;
-					align-self: flex-end; /* Added this line */
+					align-self: flex-end;
 				}
 
 				&.system {
 					align-items: flex-start;
 					margin-right: 4vw;
-					border: 2px solid #aef6a8;
+					border: 2px solid #aef6a887;
 					border-image-slice: 1;
-					align-self: flex-start; /* Added this line */
+					align-self: flex-start;
+				}
+
+				&.new-message {
+					transform: scale(1.1);
+					opacity: 0.8;
 				}
 
 				p {
-					color: $white-secondary;
+					color: #cfcfd0;
 					margin-bottom: 20px;
 
 					overflow-wrap: break-word;
@@ -137,8 +145,8 @@ body {
 		}
 
 		.chat-actions {
-			margin: 10px 10px 0 0;
-			padding: 35px;
+			padding: 35px 35px;
+			padding-left: $sidebar-width - 20px;
 			width: 100%;
 			border: none;
 			position: fixed;
@@ -188,7 +196,7 @@ body {
 			flex-direction: column;
 			align-items: center;
 
-			.info {
+			.sidebar {
 				width: 100%;
 				align-items: center;
 				flex-direction: row;
@@ -202,7 +210,7 @@ body {
 		}
 
 		@media screen and (max-width: 765px) {
-			.info {
+			.sidebar {
 				align-items: center;
 				flex-direction: row;
 

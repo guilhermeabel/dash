@@ -107,7 +107,6 @@ body {
 
 				&.user {
 					align-items: flex-end;
-					border: 1px solid $border-color;
 					margin-left: 4vw;
 					align-self: flex-end;
 				}
@@ -115,14 +114,13 @@ body {
 				&.system {
 					align-items: flex-start;
 					margin-right: 4vw;
-					border: 2px solid #aef6a887;
+					background: linear-gradient(300deg, #11161e, #1d212c);
+					box-shadow: inset 0 0px 12px #0d1117;
 					border-image-slice: 1;
 					align-self: flex-start;
 				}
 
 				&.new-message {
-					transform: scale(1.1);
-					opacity: 0.8;
 				}
 
 				p {
@@ -145,8 +143,7 @@ body {
 		}
 
 		.chat-actions {
-			padding: 35px 35px;
-			padding-left: $sidebar-width - 20px;
+			padding: 35px 30vw;
 			width: 100%;
 			border: none;
 			position: fixed;

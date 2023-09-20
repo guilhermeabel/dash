@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { Loading } from "../../Components/Loading";
 import useImageLoader from "../../Components/ImageLoader";
 import { usePage } from '@inertiajs/react'
 import MessageParser from "./MessageParser";
 import { useGetMessagesQuery, useSendMessageMutation } from "./hooks";
 import { useIsMutating } from "@tanstack/react-query";
+import { ActionButton } from "../../Components/ActionButton";
 
 
 const Chat = () => {
@@ -12,25 +13,34 @@ const Chat = () => {
 	const imageLoaders = imageUrls.map((url) => useImageLoader({ src: url }));
 	const allImagesLoaded = imageLoaders.every((imageLoader) => imageLoader.isLoaded) || imageLoaders.some((imageLoader) => imageLoader.isError);
 
+	const [newMessage, setNewMessage] = useState(false);
+
 	const { props } = usePage();
 	const { data: messages } = useGetMessagesQuery(props.chatId as number);
 	const { mutate: sendMessage } = useSendMessageMutation();
 	const isMutating = !!useIsMutating();
 
 	function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
-		e.preventDefault()
+		e.preventDefault();
 
 		if (!inputRef.current) return;
 		if (inputRef.current?.value.trim() === "") return;
 
+		const newMessage = {
+			content: inputRef.current.value,
+			role: "user",
+		};
+
 		sendMessage({
 			chatId: props.chatId as number,
-			newMessage: {
-				content: inputRef.current?.value,
-				role: "user"
-			},
+			newMessage,
 			messageHistory: [defaultFirstMessage, ...messages ?? []],
-		})
+		});
+
+		displayMessages.push(newMessage);
+		inputRef.current.value = "";
+
+		scrollToBottom("smooth");
 	}
 
 	const contentRef = useRef<HTMLDivElement>(null);
@@ -45,20 +55,27 @@ const Chat = () => {
 
 	const displayMessages = [defaultFirstMessage, ...messages ?? []];
 
-	useEffect(() => {
-		if (contentRef.current && messages) {
+	const scrollToBottom = (behavior: ScrollBehavior) => {
+		if (contentRef.current) {
 			contentRef.current.scrollTo({
 				top: contentRef.current.scrollHeight,
-				behavior: "smooth",
+				behavior: behavior,
 			});
 		}
-	}, [messages, contentRef.current]);
+	};
+
+	useLayoutEffect(() => {
+		scrollToBottom("instant");
+	});
 
 	if (!allImagesLoaded || !messages) {
 		return <Loading isChat />;
 	}
 
-	const disableSendButton = isMutating || (inputRef.current?.value.trim() === "");
+
+	const handleAnimationEnd = () => {
+		setNewMessage(false);
+	};
 
 	return <div id="chat">
 
@@ -69,8 +86,7 @@ const Chat = () => {
 
 		<div className="chat-container">
 
-
-			<div className="info">
+			<div className="sidebar">
 				<div className="rotating-logo">
 					<img src="/images/gpt-black.png" alt="gpt" />
 				</div>
@@ -83,7 +99,7 @@ const Chat = () => {
 			<div className="content" ref={contentRef}>
 
 				{displayMessages.map((message, idx) => {
-					return <div key={idx} className={`item message ${message.role}`}>
+					return <div key={idx} onTransitionEnd={handleAnimationEnd} className={`item message ${message.role} ${newMessage && idx === displayMessages.length - 1 ? 'new-message' : ''}`}>
 						<div className="message-content">
 							{message.role != "user" ? <MessageParser message={message.content} /> : <p>{message.content}</p>}
 							<p className="author">{message.role == "user" ? "You" : "AI Model"}</p>
@@ -91,12 +107,19 @@ const Chat = () => {
 					</div>
 				})}
 
+
+
 			</div>
 
 			<div className="chat-actions">
 				<div className="chat-input">
 					<input ref={inputRef} type="text" placeholder="Type a message" />
-					<button className="send" disabled={disableSendButton} onClick={handleSubmit}>Send</button>
+					{/* <button className="send loader" disabled={isMutating} onClick={handleSubmit}>Send<span></span></button> */}
+					<ActionButton
+						label={"Send"}
+						isLoading={isMutating}
+						onClick={handleSubmit}
+					/>
 				</div>
 			</div>
 
@@ -106,3 +129,4 @@ const Chat = () => {
 }
 
 export default Chat;
+

@@ -213,7 +213,7 @@
 
 		&.loading::before {
 			display: block;
-			
+			transition: display 1s ease;
 		}
 
 		&::after {

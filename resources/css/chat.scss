@@ -1,0 +1,239 @@
+@import "./fonts.scss";
+@import "./variables.scss";
+
+$sidebar-width: 300px;
+
+body {
+	background-color: $primary-color;
+}
+
+#chat {
+	overflow-x: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	background-color: $primary-color;
+	height: 100vh;
+	width: 100vw;
+
+	.menu {
+		display: none;
+		width: 100vw;
+		justify-content: center;
+		position: relative;
+		z-index: 1;
+
+		&.banner {
+			height: 15vh;
+		}
+	}
+
+	.chat-container {
+		display: flex;
+		align-items: center;
+		position: relative;
+		flex-direction: row;
+		justify-content: space-between;
+		width: 100%;
+
+		.sidebar {
+			width: $sidebar-width;
+			height: 100vh;
+			z-index: 2;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			box-shadow: inset 0 0px 5px $border-color;
+
+			.rotating-logo {
+				width: 180px;
+				filter: invert(1);
+				animation: spin 25s linear infinite;
+
+				@keyframes spin {
+					0% {
+						transform: rotate(0deg);
+					}
+					100% {
+						transform: rotate(-360deg);
+					}
+				}
+			}
+
+			div {
+				p {
+					color: $white;
+					font-size: 20px;
+				}
+
+				p.tag {
+					color: $secondary-color;
+				}
+
+				p.muted {
+					color: $secondary-color;
+					font-size: 14px;
+					text-align: left;
+				}
+
+				span.model {
+					color: $white-secondary;
+				}
+			}
+		}
+
+		.content {
+			display: flex;
+			flex-direction: column;
+			overflow-y: scroll;
+			position: relative;
+			height: 100vh;
+			padding: 35px;
+			padding-bottom: 150px;
+			width: 100%;
+			gap: 30px;
+
+			.item {
+				display: flex;
+				flex-direction: column;
+				padding: 35px;
+				color: $white-secondary;
+				border-radius: 12px;
+				transition: all 0.6s ease-out;
+
+				&.user {
+					align-items: flex-end;
+					margin-left: 4vw;
+					align-self: flex-end;
+				}
+
+				&.system {
+					align-items: flex-start;
+					margin-right: 4vw;
+					background: linear-gradient(300deg, #11161e, #1d212c);
+					box-shadow: inset 0 0px 12px #0d1117;
+					border-image-slice: 1;
+					align-self: flex-start;
+				}
+
+				p {
+					color: #cfcfd0;
+					margin-bottom: 20px;
+
+					overflow-wrap: break-word;
+					word-break: break-word;
+					text-align: justify;
+
+					&.author {
+						display: none;
+						color: $secondary-color;
+						font-size: 14px;
+						text-align: left;
+						margin-bottom: -15px;
+					}
+				}
+			}
+		}
+
+		.chat-actions {
+			padding: 35px 30vw;
+			width: 100%;
+			border: none;
+			position: fixed;
+			bottom: 0;
+			background-color: $primary-color;
+
+			-webkit-box-shadow: 0px -30px 20px 0px $primary-color;
+			-moz-box-shadow: 0px -30px 20px 0px $primary-color;
+			box-shadow: 0px -30px 20px 0px $primary-color;
+
+			.chat-input {
+				display: flex;
+				justify-content: space-between;
+				gap: 10px;
+
+				input {
+					border-radius: 8px;
+					width: 100%;
+					color: $white-secondary;
+					background-color: #1d212c;
+				}
+
+				button.send {
+					border-radius: 8px;
+					padding: 8px 14px;
+					background-color: #1d212c;
+					color: $white-secondary;
+					border: 1px solid $border-color;
+					box-shadow: inset 0 0px 5px $border-color;
+					transition: ease 0.2s;
+
+					&:hover {
+						background-color: #2c3243;
+					}
+
+					&:disabled {
+						background-color: #0d1117;
+						color: $border-color;
+						border: 1px solid $border-color;
+						box-shadow: none;
+					}
+				}
+			}
+		}
+
+		@media screen and (max-width: 1050px) {
+			flex-direction: column;
+			align-items: center;
+
+			.sidebar {
+				height: auto;
+				width: 100%;
+				align-items: center;
+				flex-direction: row;
+				padding: 0;
+				gap: 20px;
+			}
+
+			.content {
+				min-width: 0;
+			}
+		}
+
+		@media screen and (max-width: 765px) {
+			.sidebar {
+				align-items: center;
+				flex-direction: row;
+
+				padding: 0;
+				gap: 20px;
+
+				img {
+					width: 90px;
+					margin-top: 20px;
+					margin-left: 20px;
+				}
+			}
+		}
+	}
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	background: linear-gradient(to bottom, #0d1117, #1d212c);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #1d212c;
+	border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: $secondary-color;
+}
+
+::-webkit-scrollbar-corner {
+	background-color: black;
+}

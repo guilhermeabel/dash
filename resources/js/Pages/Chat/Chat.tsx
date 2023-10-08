@@ -6,6 +6,7 @@ import MessageParser from "./MessageParser";
 import { useGetMessagesQuery, useSendMessageMutation } from "./hooks";
 import { useIsMutating } from "@tanstack/react-query";
 import { ActionButton } from "../../Components/ActionButton";
+import ChatProps from "./types";
 
 
 const Chat = () => {
@@ -19,6 +20,8 @@ const Chat = () => {
 	const { data: messages } = useGetMessagesQuery(props.chatId as number);
 	const { mutate: sendMessage } = useSendMessageMutation();
 	const isMutating = !!useIsMutating();
+
+	const displayMessages = [props.defaultMessage as ChatProps.Message, ...messages ?? []];
 
 	function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
 		e.preventDefault();
@@ -34,7 +37,7 @@ const Chat = () => {
 		sendMessage({
 			chatId: props.chatId as number,
 			newMessage,
-			messageHistory: [defaultFirstMessage, ...messages ?? []],
+			messageHistory: messages ?? [],
 		});
 
 		displayMessages.push(newMessage);
@@ -45,15 +48,6 @@ const Chat = () => {
 
 	const contentRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
-
-	const defaultFirstMessage = {
-		role: "system",
-		content: "Hi, I'm GPT-4, a helpful assistant.",
-	}
-
-	const model = "GPT-4";
-
-	const displayMessages = [defaultFirstMessage, ...messages ?? []];
 
 	const scrollToBottom = (behavior: ScrollBehavior) => {
 		if (contentRef.current) {
@@ -71,7 +65,6 @@ const Chat = () => {
 	if (!allImagesLoaded || !messages) {
 		return <Loading isChat />;
 	}
-
 
 	const handleAnimationEnd = () => {
 		setNewMessage(false);
@@ -92,7 +85,7 @@ const Chat = () => {
 				</div>
 				<div>
 					<p>ChatGPT</p>
-					<p className="tag muted">using model <span className="model">{model}</span></p>
+					<p className="tag muted">using model <span className="model">{props.model as string}</span></p>
 				</div>
 			</div>
 
@@ -107,14 +100,11 @@ const Chat = () => {
 					</div>
 				})}
 
-
-
 			</div>
 
 			<div className="chat-actions">
 				<div className="chat-input">
 					<input ref={inputRef} type="text" placeholder="Type a message" />
-					{/* <button className="send loader" disabled={isMutating} onClick={handleSubmit}>Send<span></span></button> */}
 					<ActionButton
 						label={"Send"}
 						isLoading={isMutating}

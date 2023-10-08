@@ -15,8 +15,10 @@ class OpenAIController extends Controller {
      */
     public function sendRequest(string $newMessage, array $messageHistory) {
         if (self::MOCK) {
+            $charLimit =  rand(100, 500);
+
             $response = [];
-            $response['choices'][0]['message']['content'] = 'This is an example message: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque laoreet nisl sit amet lobortis. Donec sed sem et orci tempor molestie. Quisque in mi ut enim tincidunt auctor. Mauris gravida, purus ac condimentum placerat, massa purus vestibulum leo, non condimentum arcu mauris nec augue. ';
+            $response['choices'][0]['message']['content'] = substr('This is an example message: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque laoreet nisl sit amet lobortis. Donec sed sem et orci tempor molestie. Quisque in mi ut enim tincidunt auctor. Mauris gravida, purus ac condimentum placerat, massa purus vestibulum leo, non condimentum arcu mauris nec augue. ', 0, $charLimit);
             $response['model'] = 'mock-model-4';
             $response['usage']['prompt_tokens'] = 0;
             $response['usage']['completion_tokens'] = 0;

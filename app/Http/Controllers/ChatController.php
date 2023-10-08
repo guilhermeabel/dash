@@ -7,15 +7,21 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ChatController extends Controller
-{
-    public function index()
-    {
-        return Inertia::render('Chat/Index')->with("chatId", $this->getUserChatId());
+class ChatController extends Controller {
+    public function index() {
+        $model = "GPT-4";
+
+        return Inertia::render('Chat/Index')->with([
+			"chatId" => $this->getUserChatId(),
+            "model" => $model,
+            "defaultMessage" => [
+				"role" => "system",
+				"content" => "Hello, I am $model, a helpful assistant.",
+			],
+		]);
     }
 
-    public function create(): int
-    {
+    public function create(): int {
         $chat = new Chat();
         $chat->user_id = auth()->user()->id;
         $chat->save();
@@ -23,8 +29,7 @@ class ChatController extends Controller
         return $chat->id;
     }
 
-    public function sendRequest(Request $request)
-    {
+    public function sendRequest(Request $request) {
         // check if chatid from request is from the same user
         // check if user has exceeded the usage limit
 
@@ -39,10 +44,9 @@ class ChatController extends Controller
         $this->persistResults($request, $response);
     }
 
-    public function getChatMessages(int $id)
-    {
+    public function getChatMessages(int $id) {
         $messages = Message::where('chat_id', $id)->get();
-        // return only role and content of each message
+
         $messages = $messages->map(function ($message) {
             return [
                 'role' => $message->role,
@@ -54,8 +58,7 @@ class ChatController extends Controller
     }
 
 
-    private function persistResults($request, $response)
-    {
+    private function persistResults($request, $response) {
         $messageController = new MessageController();
         $messageController->saveUserMessage(
             $request->chatId,
@@ -77,8 +80,7 @@ class ChatController extends Controller
         );
     }
 
-    private function getUserChatId(): int
-    {
+    private function getUserChatId(): int {
         $userId = auth()->user()->id;
         $chat = Chat::where('user_id', $userId)->first();
 
